@@ -1,1 +1,0 @@
-This is the read me for blog post Containers 101 for DBAs: 4)Building Customized Containers for PostgreSQL

@@ -1,0 +1,13 @@
+# dockerfile
+
+# Use the official PostgreSQL 16 image as the base
+FROM postgres:16
+
+# Document the exposed PostgreSQL port
+EXPOSE 5432
+
+# Switch user to postgres
+USER postgres
+
+# Default command to start PostgreSQL
+CMD ["postgres"]

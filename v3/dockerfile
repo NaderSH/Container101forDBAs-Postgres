@@ -1,0 +1,27 @@
+# Use the official PostgreSQL 16 image as the base
+FROM postgres:16
+
+# Copy the configuration update script into the image
+COPY ./init/update_pgconfig.sh /usr/local/bin/update_pgconfig.sh
+
+# Copy the connectivity update script into the container
+COPY ./init/update_pg_hba.sh /usr/local/bin/update_pg_hba.sh
+
+# Copy the SQL initialization script to the container
+COPY ./init/create_users.sql /usr/local/bin/create_users.sql
+
+# Ensure the scripts are executable
+RUN chmod +x /usr/local/bin/update_pgconfig.sh
+RUN chmod +x /usr/local/bin/update_pg_hba.sh
+
+# Copy initialization scripts to auto-execute during first run
+COPY ./init/ /docker-entrypoint-initdb.d/
+
+# Document the exposed PostgreSQL port
+EXPOSE 5432
+
+# Switch user to postgres
+USER postgres
+
+# Default command to start PostgreSQL
+CMD ["postgres"]
